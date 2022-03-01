@@ -18948,6 +18948,10 @@ __webpack_require__.r(__webpack_exports__);
     Card: _Components_Card_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
     Breadcrumbs: _Components_Breadcrumbs__WEBPACK_IMPORTED_MODULE_9__["default"]
   },
+  props: {
+    edit: Boolean,
+    category: Object
+  },
   data: function data() {
     return {
       form: this.$inertia.form({
@@ -18962,18 +18966,26 @@ __webpack_require__.r(__webpack_exports__);
         label: "Categories",
         url: route("categories.index")
       }, {
-        label: "Add Category"
+        label: "".concat(this.edit ? "Edit" : "Add", " Category")
       }];
     }
   },
   methods: {
     saveCategory: function saveCategory() {
-      this.form.post(route("categories.store"));
+      this.edit ? this.form.put(route("categories.update", {
+        id: this.category.data.id
+      })) : this.form.post(route("categories.store"));
     }
   },
   watch: {
     "form.name": function formName(name) {
       this.form.slug = (0,_helpers_js__WEBPACK_IMPORTED_MODULE_6__.strSlug)(name);
+    }
+  },
+  mounted: function mounted() {
+    if (this.edit) {
+      this.form.name = this.category.data.name;
+      this.form.slug = this.category.data.slug;
     }
   }
 });
@@ -19028,6 +19040,8 @@ __webpack_require__.r(__webpack_exports__);
     headers: function headers() {
       return [{
         name: "Name"
+      }, {
+        name: "Created Date"
       }, {
         name: "Action",
         "class": "text-right"
@@ -23562,11 +23576,18 @@ var _hoisted_1 = {
 var _hoisted_2 = {
   "class": "mt-4"
 };
-
-var _hoisted_3 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Saved. ");
-
-var _hoisted_4 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createTextVNode)(" Save ");
-
+var _hoisted_3 = {
+  key: 0
+};
+var _hoisted_4 = {
+  key: 1
+};
+var _hoisted_5 = {
+  key: 0
+};
+var _hoisted_6 = {
+  key: 1
+};
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Breadcrumbs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Breadcrumbs");
 
@@ -23646,7 +23667,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 "class": "mr-3"
               }, {
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_3];
+                  return [$props.edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, "Updated.")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_4, "Saved."))];
                 }),
                 _: 1
                 /* STABLE */
@@ -23660,7 +23681,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 disabled: $data.form.processing
               }, {
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [_hoisted_4];
+                  return [$props.edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_5, "Update")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_6, "Save"))];
                 }),
                 _: 1
                 /* STABLE */
@@ -23764,6 +23785,8 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("tr", {
                       key: category.id
                     }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name), 1
+                    /* TEXT */
+                    ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.created_at_for_human), 1
                     /* TEXT */
                     ), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("td", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_EditBtn, {
                       url: _ctx.route('categories.edit', {
