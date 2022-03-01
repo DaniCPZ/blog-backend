@@ -8,7 +8,8 @@
 
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
+        <jet-button :href="route('categories.create')">Add new</jet-button>
+        <div class="mt-4 p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
           <AppTable :headers="headers">
             <tr v-for="category in categories.data" :key="category.id">
               <td>{{ category.name }}</td>
@@ -45,6 +46,7 @@ import EditBtn from "../../Components/EditBtn";
 import DeleteBtn from "../../Components/DeleteBtn";
 import SimplePagination from "../../Components/SimplePagination";
 import AppTable from "../../Components/Table";
+import JetButton from "../../Jetstream/Button";
 
 export default {
   props: {
@@ -56,6 +58,7 @@ export default {
     DeleteBtn,
     SimplePagination,
     AppTable,
+    JetButton,
   },
   computed: {
     headers() {
