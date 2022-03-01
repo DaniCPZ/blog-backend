@@ -1,9 +1,7 @@
 <template>
     <app-layout title="Profile">
         <template #header>
-            <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-                Profile
-            </h2>
+            <Breadcrumbs :items="breadcrumbs" />
         </template>
 
         <div>
@@ -47,6 +45,7 @@
     import TwoFactorAuthenticationForm from '@/Pages/Profile/Partials/TwoFactorAuthenticationForm.vue'
     import UpdatePasswordForm from '@/Pages/Profile/Partials/UpdatePasswordForm.vue'
     import UpdateProfileInformationForm from '@/Pages/Profile/Partials/UpdateProfileInformationForm.vue'
+    import Breadcrumbs from "../../Components/Breadcrumbs";
 
     export default defineComponent({
         props: ['sessions'],
@@ -59,6 +58,17 @@
             TwoFactorAuthenticationForm,
             UpdatePasswordForm,
             UpdateProfileInformationForm,
+            Breadcrumbs,
+        },
+
+        computed: {
+            breadcrumbs() {
+            return [
+                {
+                    label: "Profile",
+                },
+            ];
+            },
         },
     })
 </script>

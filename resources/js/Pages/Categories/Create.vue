@@ -1,9 +1,7 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Category > Add Category
-      </h2>
+      <Breadcrumbs :items="breadcrumbs" />
     </template>
     <Container>
       <Card>
@@ -61,6 +59,8 @@ import JetActionMessage from "../../Jetstream/ActionMessage";
 import { strSlug } from "../../helpers.js";
 import Container from "../../Components/Container.vue";
 import Card from "../../Components/Card.vue";
+import Breadcrumbs from "../../Components/Breadcrumbs";
+
 export default {
   components: {
     AppLayout,
@@ -71,6 +71,7 @@ export default {
     JetActionMessage,
     Container,
     Card,
+    Breadcrumbs,
   },
   data() {
     return {
@@ -79,6 +80,19 @@ export default {
         slug: "",
       }),
     };
+  },
+  computed: {
+    breadcrumbs() {
+      return [
+        {
+          label: "Categories",
+          url: route("categories.index"),
+        },
+        {
+          label: "Add Category",
+        },
+      ];
+    },
   },
   methods: {
     saveCategory() {

@@ -1,9 +1,7 @@
 <template>
   <app-layout>
     <template #header>
-      <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Categories
-      </h2>
+      <Breadcrumbs :items="breadcrumbs" />
     </template>
     <Container>
       <jet-button :href="route('categories.create')">Add new</jet-button>
@@ -42,8 +40,9 @@ import DeleteBtn from "../../Components/DeleteBtn";
 import SimplePagination from "../../Components/SimplePagination";
 import AppTable from "../../Components/Table";
 import JetButton from "../../Jetstream/Button";
-import Container from '../../Components/Container.vue';
-import Card from '../../Components/Card.vue';
+import Container from "../../Components/Container.vue";
+import Card from "../../Components/Card.vue";
+import Breadcrumbs from "../../Components/Breadcrumbs";
 
 export default {
   props: {
@@ -58,6 +57,7 @@ export default {
     JetButton,
     Container,
     Card,
+    Breadcrumbs,
   },
   computed: {
     headers() {
@@ -68,6 +68,13 @@ export default {
         {
           name: "Action",
           class: "text-right",
+        },
+      ];
+    },
+    breadcrumbs() {
+      return [
+        {
+          label: "Categories",
         },
       ];
     },
