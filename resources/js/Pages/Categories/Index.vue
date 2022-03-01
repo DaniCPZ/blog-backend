@@ -9,32 +9,24 @@
     <div class="py-12">
       <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
         <div class="p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <table>
-            <thead>
-              <tr>
-                <th class="text-left">Name</th>
-                <th class="text-left">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="category in categories.data" :key="category.id">
-                <td>{{ category.name }}</td>
-                <td>
-                  <div class="flex items-center space-x-2">
-                    <EditBtn
-                      :url="route('categories.edit', { category: category.id })"
-                    />
-                    <DeleteBtn
-                      :url="
-                        route('categories.destroy', { category: category.id })
-                      "
-                      module-name="category"
-                    />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <AppTable :headers="headers">
+            <tr v-for="category in categories.data" :key="category.id">
+              <td>{{ category.name }}</td>
+              <td>
+                <div class="flex items-center justify-end space-x-2">
+                  <EditBtn
+                    :url="route('categories.edit', { category: category.id })"
+                  />
+                  <DeleteBtn
+                    :url="
+                      route('categories.destroy', { category: category.id })
+                    "
+                    module-name="category"
+                  />
+                </div>
+              </td>
+            </tr>
+          </AppTable>
           <div class="mt-4">
             <SimplePagination
               :prev-url="categories.links.prev"
@@ -52,6 +44,8 @@ import AppLayout from "../../Layouts/AppLayout";
 import EditBtn from "../../Components/EditBtn";
 import DeleteBtn from "../../Components/DeleteBtn";
 import SimplePagination from "../../Components/SimplePagination";
+import AppTable from "../../Components/Table";
+
 export default {
   props: {
     categories: {},
@@ -61,6 +55,20 @@ export default {
     EditBtn,
     DeleteBtn,
     SimplePagination,
+    AppTable,
+  },
+  computed: {
+    headers() {
+      return [
+        {
+          name: "Name",
+        },
+        {
+          name: "Action",
+          class: "text-right",
+        },
+      ];
+    },
   },
 };
 </script>
