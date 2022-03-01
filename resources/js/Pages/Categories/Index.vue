@@ -35,6 +35,12 @@
               </tr>
             </tbody>
           </table>
+          <div class="mt-4">
+            <SimplePagination
+              :prev-url="categories.links.prev"
+              :next-url="categories.links.next"
+            />
+          </div>
         </div>
       </div>
     </div>
@@ -45,6 +51,7 @@
 import AppLayout from "../../Layouts/AppLayout";
 import EditBtn from "../../Components/EditBtn";
 import DeleteBtn from "../../Components/DeleteBtn";
+import SimplePagination from "../../Components/SimplePagination";
 export default {
   props: {
     categories: {},
@@ -53,6 +60,7 @@ export default {
     AppLayout,
     EditBtn,
     DeleteBtn,
+    SimplePagination,
   },
 };
 </script>
