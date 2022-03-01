@@ -2,55 +2,52 @@
   <app-layout>
     <template #header>
       <h2 class="font-semibold text-xl text-gray-800 leading-tight">
-        Add Category
+        Category > Add Category
       </h2>
     </template>
+    <Container>
+      <Card>
+        <form @submit.prevent="saveCategory">
+          <div>
+            <jet-label for="name" value="Name" />
+            <jet-input
+              id="name"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.name"
+              autocomplete="name"
+            />
+            <jet-input-error :message="form.errors.name" class="mt-2" />
+          </div>
 
-    <div class="py-12">
-      <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-        <div class="p-6 bg-white overflow-hidden shadow-xl sm:rounded-lg">
-          <form @submit.prevent="saveCategory">
-            <div>
-              <jet-label for="name" value="Name" />
-              <jet-input
-                id="name"
-                type="text"
-                class="mt-1 block w-full"
-                v-model="form.name"
-                autocomplete="name"
-              />
-              <jet-input-error :message="form.errors.name" class="mt-2" />
-            </div>
+          <!-- slug -->
+          <div class="mt-4">
+            <jet-label for="slug" value="Slug" />
+            <jet-input
+              id="slug"
+              type="text"
+              class="mt-1 block w-full"
+              v-model="form.slug"
+              autocomplete="slug"
+            />
+            <jet-input-error :message="form.errors.slug" class="mt-2" />
+          </div>
 
-            <!-- slug -->
-            <div class="mt-4">
-              <jet-label for="slug" value="Slug" />
-              <jet-input
-                id="slug"
-                type="text"
-                class="mt-1 block w-full"
-                v-model="form.slug"
-                autocomplete="slug"
-              />
-              <jet-input-error :message="form.errors.slug" class="mt-2" />
-            </div>
+          <div class="mt-4">
+            <jet-action-message :on="form.recentlySuccessful" class="mr-3">
+              Saved.
+            </jet-action-message>
 
-            <div class="mt-4">
-              <jet-action-message :on="form.recentlySuccessful" class="mr-3">
-                Saved.
-              </jet-action-message>
-
-              <jet-button
-                :class="{ 'opacity-25': form.processing }"
-                :disabled="form.processing"
-              >
-                Save
-              </jet-button>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
+            <jet-button
+              :class="{ 'opacity-25': form.processing }"
+              :disabled="form.processing"
+            >
+              Save
+            </jet-button>
+          </div>
+        </form>
+      </Card>
+    </Container>
   </app-layout>
 </template>
 
@@ -62,6 +59,8 @@ import JetInput from "../../Jetstream/Input";
 import JetInputError from "../../Jetstream/InputError";
 import JetActionMessage from "../../Jetstream/ActionMessage";
 import { strSlug } from "../../helpers.js";
+import Container from "../../Components/Container.vue";
+import Card from "../../Components/Card.vue";
 export default {
   components: {
     AppLayout,
@@ -70,6 +69,8 @@ export default {
     JetInput,
     JetInputError,
     JetActionMessage,
+    Container,
+    Card,
   },
   data() {
     return {
