@@ -27,37 +27,9 @@ class Setting extends Model
         return Arr::get($this->data, 'hero_description');
     }
 
-    public function heroImageUrl(): ?string
-    {
-        return $this->imageUrl('hero_image');
-    }
-
-    public function deleteHeroImage(): void
-    {
-        $imageName = Arr::get($this->data, 'hero_image');
-
-        if ($imageName !== null) {
-            Storage::disk('public')->delete("{$this->uploadFolder()}/{$imageName}");
-        }
-    }
-
-    public function deleteAboutImage(): void
-    {
-        $imageName = Arr::get($this->data, 'about_image');
-
-        if ($imageName !== null) {
-            Storage::disk('public')->delete("{$this->uploadFolder()}/{$imageName}");
-        }
-    }
-
     public function aboutDescription(): ?string
     {
         return Arr::get($this->data, 'about_description');
-    }
-
-    public function aboutImageUrl(): ?string
-    {
-        return $this->imageUrl('about_image');
     }
 
     public function imageUrl(string $column): ?string
@@ -67,5 +39,34 @@ class Setting extends Model
         return $imageName === null
             ? "https://ui-avatars.com/api/?name={$column}&color=7F9CF5&background=EBF4FF"
             : Storage::disk('public')->url("{$this->uploadFolder()}/{$imageName}");
+    }
+
+    public function deleteImage(string $column): void
+    {
+        $imageName = Arr::get($this->data, $column);
+
+        if ($imageName !== null) {
+            Storage::delete("{$this->uploadFolder()}/{$imageName}");
+        }
+    }
+
+    public function address(): ?string
+    {
+        return Arr::get($this->data, 'address');
+    }
+
+    public function phone(): ?string
+    {
+        return Arr::get($this->data, 'phone');
+    }
+
+    public function email(): ?string
+    {
+        return Arr::get($this->data, 'email');
+    }
+
+    public function googleMapUrl(): ?string
+    {
+        return Arr::get($this->data, 'google_map_url');
     }
 }

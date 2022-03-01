@@ -15,10 +15,15 @@ class SettingsResource extends JsonResource
     public function toArray($request)
     {
         return [
-            'hero_description' => $this->heroDescription(),
-            'hero_image_url' => $this->heroImageUrl(),
             'about_description' => $this->aboutDescription(),
-            'about_image_url' => $this->aboutImageUrl(),
+            'about_image_url' => $this->imageUrl('about_image'),
+            'address' => $this->address(),
+            'contact_image_url' => $this->imageUrl('contact_image'),
+            'email' => $this->email(),
+            'google_map_url' => $this->googleMapUrl(),
+            'hero_description' => $this->heroDescription(),
+            'hero_image_url' => $this->imageUrl('hero_image'),
+            'phone' => $this->phone(),
         ];
     }
 }
