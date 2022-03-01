@@ -232,6 +232,7 @@
 
             <!-- Page Content -->
             <main>
+                <FlashMessage/>
                 <slot></slot>
             </main>
         </div>
@@ -247,6 +248,7 @@
     import JetNavLink from '@/Jetstream/NavLink.vue'
     import JetResponsiveNavLink from '@/Jetstream/ResponsiveNavLink.vue'
     import { Head, Link } from '@inertiajs/inertia-vue3';
+    import FlashMessage from '../Components/FlashMessage.vue'
 
     export default defineComponent({
         props: {
@@ -262,6 +264,7 @@
             JetNavLink,
             JetResponsiveNavLink,
             Link,
+            FlashMessage,
         },
 
         data() {
