@@ -2,9 +2,7 @@
 
 namespace App\Models;
 
-use App\Traits\Imageable;
 use Illuminate\Support\Arr;
-use App\Contracts\ImageableContract;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
@@ -31,11 +29,7 @@ class Setting extends Model
 
     public function heroImageUrl(): ?string
     {
-        $imageName = Arr::get($this->data, 'hero_image');
-
-        return $imageName === null
-            ? 'https://ui-avatars.com/api/?name=hero_image&color=7F9CF5&background=EBF4FF'
-            : Storage::disk('public')->url("{$this->uploadFolder()}/{$imageName}");
+        return $this->imageUrl('hero_image');
     }
 
     public function deleteHeroImage(): void
@@ -45,5 +39,33 @@ class Setting extends Model
         if ($imageName !== null) {
             Storage::disk('public')->delete("{$this->uploadFolder()}/{$imageName}");
         }
+    }
+
+    public function deleteAboutImage(): void
+    {
+        $imageName = Arr::get($this->data, 'about_image');
+
+        if ($imageName !== null) {
+            Storage::disk('public')->delete("{$this->uploadFolder()}/{$imageName}");
+        }
+    }
+
+    public function aboutDescription(): ?string
+    {
+        return Arr::get($this->data, 'about_description');
+    }
+
+    public function aboutImageUrl(): ?string
+    {
+        return $this->imageUrl('about_image');
+    }
+
+    public function imageUrl(string $column): ?string
+    {
+        $imageName = Arr::get($this->data, $column);
+
+        return $imageName === null
+            ? "https://ui-avatars.com/api/?name={$column}&color=7F9CF5&background=EBF4FF"
+            : Storage::disk('public')->url("{$this->uploadFolder()}/{$imageName}");
     }
 }

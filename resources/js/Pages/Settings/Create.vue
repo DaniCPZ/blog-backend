@@ -9,6 +9,8 @@
     <div>
       <div class="max-w-7xl mx-auto py-10 sm:px-6 lg:px-8">
         <UpdateHeroData :settings="settings" />
+        <jet-section-border />
+        <UpdateAboutData :settings="settings" />
       </div>
     </div>
   </app-layout>
@@ -17,11 +19,16 @@
 <script>
 import AppLayout from "../../Layouts/AppLayout.vue";
 import UpdateHeroData from "./UpdateHeroData";
+import UpdateAboutData from "./UpdateAboutData";
+import JetSectionBorder from "../../Jetstream/SectionBorder";
+
 export default {
   props: ["settings"],
   components: {
     AppLayout,
     UpdateHeroData,
+    UpdateAboutData,
+    JetSectionBorder,
   },
 };
 </script>
