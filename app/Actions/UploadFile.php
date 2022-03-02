@@ -33,7 +33,7 @@ class UploadFile
         $imageName = (string) Str::of($this->file->getClientOriginalName())
                 ->beforeLast('.')
                 ->slug()
-                ->append('.')
+                ->append(date('YmdHis').'.')
                 ->append($this->file->getClientOriginalExtension());
 
         $this->file->storeAs($this->uploadPath, $imageName, 'public');
