@@ -16,13 +16,13 @@ class SettingsResource extends JsonResource
     {
         return [
             'about_description' => $this->aboutDescription(),
-            'about_image_url' => $this->imageUrl('about_image'),
+            'about_image_url' => $this->imageUrl('data->about_image'),
             'address' => $this->address(),
-            'contact_image_url' => $this->imageUrl('contact_image'),
+            'contact_image_url' => $this->imageUrl('data->contact_image'),
             'email' => $this->email(),
             'google_map_url' => $this->googleMapUrl(),
             'hero_description' => $this->heroDescription(),
-            'hero_image_url' => $this->imageUrl('hero_image'),
+            'hero_image_url' => $this->imageUrl('data->hero_image'),
             'phone' => $this->phone(),
         ];
     }

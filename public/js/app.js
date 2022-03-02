@@ -17404,8 +17404,7 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     imageUrl: {},
     label: {},
-    errorMessage: {},
-    modelValue: {}
+    errorMessage: {}
   },
   data: function data() {
     return {
