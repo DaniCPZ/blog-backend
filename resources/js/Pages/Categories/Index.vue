@@ -6,7 +6,7 @@
     <Container>
       <jet-button :href="route('categories.create')">Add new</jet-button>
       <Card class="mt-4">
-        <AppTable :headers="headers">
+        <AppTable :headers="headers" :items="categories">
           <tr v-for="category in categories.data" :key="category.id">
             <td>{{ category.name }}</td>
             <td>{{ category.created_at_for_human }}</td>
@@ -23,12 +23,6 @@
             </td>
           </tr>
         </AppTable>
-        <div class="mt-4">
-          <SimplePagination
-            :prev-url="categories.links.prev"
-            :next-url="categories.links.next"
-          />
-        </div>
       </Card>
     </Container>
   </app-layout>
@@ -38,7 +32,6 @@
 import AppLayout from "../../Layouts/AppLayout";
 import EditBtn from "../../Components/EditBtn";
 import DeleteBtn from "../../Components/DeleteBtn";
-import SimplePagination from "../../Components/SimplePagination";
 import AppTable from "../../Components/Table";
 import JetButton from "../../Jetstream/Button";
 import Container from "../../Components/Container.vue";
@@ -53,7 +46,6 @@ export default {
     AppLayout,
     EditBtn,
     DeleteBtn,
-    SimplePagination,
     AppTable,
     JetButton,
     Container,
