@@ -33,6 +33,7 @@ class UploadFile
         $imageName = (string) Str::of($this->file->getClientOriginalName())
                 ->beforeLast('.')
                 ->slug()
+                ->substr(0,100)
                 ->append(date('YmdHis').'.')
                 ->append($this->file->getClientOriginalExtension());
 
