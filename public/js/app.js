@@ -17187,12 +17187,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
 /* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
+/* harmony import */ var _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @inertiajs/inertia-vue3 */ "./node_modules/@inertiajs/inertia-vue3/dist/index.js");
+
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   props: {
     items: {
       type: Array,
       required: true
     }
+  },
+  components: {
+    Link: _inertiajs_inertia_vue3__WEBPACK_IMPORTED_MODULE_0__.Link
   },
   data: function data() {
     return {};
@@ -17399,7 +17404,8 @@ __webpack_require__.r(__webpack_exports__);
   props: {
     imageUrl: {},
     label: {},
-    errorMessage: {}
+    errorMessage: {},
+    modelValue: {}
   },
   data: function data() {
     return {
@@ -18486,6 +18492,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Components_Container_vue__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../Components/Container.vue */ "./resources/js/Components/Container.vue");
 /* harmony import */ var _Components_Card_vue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Components/Card.vue */ "./resources/js/Components/Card.vue");
 /* harmony import */ var _Components_Breadcrumbs__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../Components/Breadcrumbs */ "./resources/js/Components/Breadcrumbs.vue");
+/* harmony import */ var _Components_Ckeditor__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Components/Ckeditor */ "./resources/js/Components/Ckeditor.vue");
+/* harmony import */ var _Components_Image__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../Components/Image */ "./resources/js/Components/Image.vue");
+
+
 
 
 
@@ -18506,17 +18516,34 @@ __webpack_require__.r(__webpack_exports__);
     JetActionMessage: _Jetstream_ActionMessage__WEBPACK_IMPORTED_MODULE_5__["default"],
     Container: _Components_Container_vue__WEBPACK_IMPORTED_MODULE_7__["default"],
     Card: _Components_Card_vue__WEBPACK_IMPORTED_MODULE_8__["default"],
-    Breadcrumbs: _Components_Breadcrumbs__WEBPACK_IMPORTED_MODULE_9__["default"]
+    Breadcrumbs: _Components_Breadcrumbs__WEBPACK_IMPORTED_MODULE_9__["default"],
+    AppCkeditor: _Components_Ckeditor__WEBPACK_IMPORTED_MODULE_10__["default"],
+    AppImage: _Components_Image__WEBPACK_IMPORTED_MODULE_11__["default"]
   },
   props: {
     edit: Boolean,
-    article: Object
+    article: Object,
+    categories: {
+      type: Object,
+      "default": function _default() {
+        return {
+          data: []
+        };
+      }
+    }
   },
   data: function data() {
     return {
+      imageUrl: "",
       form: this.$inertia.form({
+        _method: this.edit ? "PUT" : "",
+        category_id: "",
         title: "",
-        slug: ""
+        slug: "",
+        description: this.edit ? this.article.data.description : "",
+        image: null
+      }, {
+        resetOnSuccess: false
       })
     };
   },
@@ -18532,7 +18559,7 @@ __webpack_require__.r(__webpack_exports__);
   },
   methods: {
     saveArticle: function saveArticle() {
-      this.edit ? this.form.put(route("articles.update", {
+      this.edit ? this.form.post(route("articles.update", {
         id: this.article.data.id
       })) : this.form.post(route("articles.store"));
     }
@@ -18544,9 +18571,12 @@ __webpack_require__.r(__webpack_exports__);
   },
   mounted: function mounted() {
     if (this.edit) {
-      this.form.title = this.article.data.title;
+      this.form.category_id = this.article.data.category_id;
       this.form.slug = this.article.data.slug;
+      this.form.title = this.article.data.title;
     }
+
+    this.imageUrl = this.article.data.image_url;
   }
 });
 
@@ -20064,12 +20094,12 @@ var _hoisted_3 = {
   "class": "mx-2"
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
-  var _component_inertia_link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("inertia-link");
+  var _component_Link = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Link");
 
   return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("h2", _hoisted_1, [((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.items, function (item, index) {
     return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", {
       key: index
-    }, [item.url ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_inertia_link, {
+    }, [item.url ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createBlock)(_component_Link, {
       key: 0,
       href: item.url
     }, {
@@ -22837,29 +22867,47 @@ __webpack_require__.r(__webpack_exports__);
 var _hoisted_1 = {
   "class": "mt-4"
 };
-var _hoisted_2 = {
+
+var _hoisted_2 = /*#__PURE__*/(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("option", {
+  value: ""
+}, "Select", -1
+/* HOISTED */
+);
+
+var _hoisted_3 = ["value"];
+var _hoisted_4 = {
   "class": "mt-4"
 };
-var _hoisted_3 = {
-  key: 0
-};
-var _hoisted_4 = {
-  key: 1
-};
 var _hoisted_5 = {
-  key: 0
+  "class": "mt-4"
 };
 var _hoisted_6 = {
+  "class": "mt-4"
+};
+var _hoisted_7 = {
+  key: 0
+};
+var _hoisted_8 = {
+  key: 1
+};
+var _hoisted_9 = {
+  key: 0
+};
+var _hoisted_10 = {
   key: 1
 };
 function render(_ctx, _cache, $props, $setup, $data, $options) {
   var _component_Breadcrumbs = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("Breadcrumbs");
 
+  var _component_AppImage = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AppImage");
+
   var _component_jet_label = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-label");
+
+  var _component_jet_input_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-input-error");
 
   var _component_jet_input = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-input");
 
-  var _component_jet_input_error = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-input-error");
+  var _component_AppCkeditor = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("AppCkeditor");
 
   var _component_jet_action_message = (0,vue__WEBPACK_IMPORTED_MODULE_0__.resolveComponent)("jet-action-message");
 
@@ -22885,10 +22933,47 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
           return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_Card, null, {
             "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
               return [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("form", {
-                onSubmit: _cache[2] || (_cache[2] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
+                onSubmit: _cache[5] || (_cache[5] = (0,vue__WEBPACK_IMPORTED_MODULE_0__.withModifiers)(function () {
                   return $options.saveArticle && $options.saveArticle.apply($options, arguments);
                 }, ["prevent"]))
-              }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
+              }, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AppImage, {
+                "class": "mt-2",
+                modelValue: $data.form.image,
+                "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+                  return $data.form.image = $event;
+                }),
+                "image-url": $data.imageUrl,
+                label: "Image",
+                "error-message": $data.form.errors.image
+              }, null, 8
+              /* PROPS */
+              , ["modelValue", "image-url", "error-message"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
+                "for": "category",
+                value: "Category"
+              }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.withDirectives)((0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("select", {
+                name: "category",
+                id: "category",
+                "class": "block w-full form-input",
+                "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+                  return $data.form.category_id = $event;
+                })
+              }, [_hoisted_2, ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(true), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)(vue__WEBPACK_IMPORTED_MODULE_0__.Fragment, null, (0,vue__WEBPACK_IMPORTED_MODULE_0__.renderList)($props.categories.data, function (category) {
+                return (0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("option", {
+                  key: category.id,
+                  value: category.id
+                }, (0,vue__WEBPACK_IMPORTED_MODULE_0__.toDisplayString)(category.name), 9
+                /* TEXT, PROPS */
+                , _hoisted_3);
+              }), 128
+              /* KEYED_FRAGMENT */
+              ))], 512
+              /* NEED_PATCH */
+              ), [[vue__WEBPACK_IMPORTED_MODULE_0__.vModelSelect, $data.form.category_id]]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input_error, {
+                message: $data.form.errors.category_id,
+                "class": "mt-2"
+              }, null, 8
+              /* PROPS */
+              , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", null, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
                 "for": "title",
                 value: "Title"
               }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
@@ -22896,7 +22981,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 type: "text",
                 "class": "mt-1 block w-full",
                 modelValue: $data.form.title,
-                "onUpdate:modelValue": _cache[0] || (_cache[0] = function ($event) {
+                "onUpdate:modelValue": _cache[2] || (_cache[2] = function ($event) {
                   return $data.form.title = $event;
                 }),
                 autocomplete: "title"
@@ -22907,7 +22992,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 "class": "mt-2"
               }, null, 8
               /* PROPS */
-              , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" slug "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_1, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
+              , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createCommentVNode)(" slug "), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_4, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
                 "for": "slug",
                 value: "Slug"
               }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input, {
@@ -22915,7 +23000,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 type: "text",
                 "class": "mt-1 block w-full",
                 modelValue: $data.form.slug,
-                "onUpdate:modelValue": _cache[1] || (_cache[1] = function ($event) {
+                "onUpdate:modelValue": _cache[3] || (_cache[3] = function ($event) {
                   return $data.form.slug = $event;
                 }),
                 autocomplete: "slug"
@@ -22926,12 +23011,28 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 "class": "mt-2"
               }, null, 8
               /* PROPS */
-              , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_2, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_action_message, {
+              , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_5, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_label, {
+                "for": "description",
+                value: "Description"
+              }), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_AppCkeditor, {
+                "class": "mt-1",
+                modelValue: $data.form.description,
+                "onUpdate:modelValue": _cache[4] || (_cache[4] = function ($event) {
+                  return $data.form.description = $event;
+                })
+              }, null, 8
+              /* PROPS */
+              , ["modelValue"]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_input_error, {
+                message: $data.form.errors.description,
+                "class": "mt-2"
+              }, null, 8
+              /* PROPS */
+              , ["message"])]), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementVNode)("div", _hoisted_6, [(0,vue__WEBPACK_IMPORTED_MODULE_0__.createVNode)(_component_jet_action_message, {
                 on: $data.form.recentlySuccessful,
                 "class": "mr-3"
               }, {
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [$props.edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_3, "Updated.")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_4, "Saved."))];
+                  return [$props.edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_7, "Updated.")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_8, "Saved."))];
                 }),
                 _: 1
                 /* STABLE */
@@ -22945,7 +23046,7 @@ function render(_ctx, _cache, $props, $setup, $data, $options) {
                 disabled: $data.form.processing
               }, {
                 "default": (0,vue__WEBPACK_IMPORTED_MODULE_0__.withCtx)(function () {
-                  return [$props.edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_5, "Update")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_6, "Save"))];
+                  return [$props.edit ? ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_9, "Update")) : ((0,vue__WEBPACK_IMPORTED_MODULE_0__.openBlock)(), (0,vue__WEBPACK_IMPORTED_MODULE_0__.createElementBlock)("span", _hoisted_10, "Save"))];
                 }),
                 _: 1
                 /* STABLE */
